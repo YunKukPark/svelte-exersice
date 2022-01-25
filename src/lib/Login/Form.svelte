@@ -3,8 +3,9 @@
 	import FaLock from 'svelte-icons/fa/FaLock.svelte';
 	import FaRegEyeSlash from 'svelte-icons/fa/FaRegEyeSlash.svelte';
 	import FaRegEye from 'svelte-icons/fa/FaRegEye.svelte';
+	import Input from './Input.svelte';
 
-	const userInfo = { id: '', password: '' };
+	const userInfo = { id: '', password: '', isRemember: false };
 
 	let isPasswordView = false;
 	let passwordViewType = 'password';
@@ -34,12 +35,11 @@
 			>
 				<FaRegUserCircle />
 			</div>
-			<input
-				name="id"
-				type="text"
+			<Input
+				name={'id'}
+				type={'text'}
 				bind:value={userInfo.id}
-				placeholder="Username: admin or user"
-				class="w-full h-full px-4 py-2 pl-10 border border-solid border-border rounded-sm  focus:border focus:border-blue-primary focus:outline-none transition"
+				placeholder={'Username: admin or user'}
 			/>
 		</div>
 
@@ -49,14 +49,11 @@
 			>
 				<FaLock />
 			</div>
-			<!-- 2way binding issue -->
-			<input
+			<Input
+				name={'password'}
+				type={passwordViewType}
 				bind:value={userInfo.password}
-				name="password"
-				type="password"
-				{passwordViewType}
-				placeholder="Password 를 입력해주세요"
-				class="w-full h-full px-4 py-2 px-10 border border-solid border-border rounded-sm  focus:border focus:border-blue-primary focus:outline-none transition"
+				placeholder={'Password 를 입력해주세요'}
 			/>
 			<div
 				on:click={togglePasswordView}
@@ -71,9 +68,14 @@
 		</div>
 
 		<div class="flex justify-between items-center mb-5">
-			<div>
-				<input name="user-login-remember" type="checkbox" />
-				<label htmlFor="user-login-remember">Remember Me</label>
+			<div class="flex items-center">
+				<input
+					name="user-login-remember"
+					type="checkbox"
+					class="relative mr-2 top-0.5"
+					bind:checked={userInfo.isRemember}
+				/>
+				<label for="user-login-remember">Remember Me</label>
 			</div>
 			<a href="#" class="text-blue-primary">Forgot Password?</a>
 		</div>
